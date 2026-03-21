@@ -1,0 +1,28 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8ssecurepod
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sSecurePod
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8ssecurepod
+
+        violation[{"msg": msg}] {
+          input.review.object.spec.containers[_].securityContext.privileged == true
+          msg := "Privileged containers are not allowed"
+        }
+
+        violation[{"msg": msg}] {
+          not input.review.object.spec.securityContext.runAsNonRoot == true
+          msg := "Containers must run as non-root"
+        }
+
+        violation[{"msg": msg}] {
+          not input.review.object.spec.containers[_].resources.limits.cpu
+          msg := "CPU limits must be defined"
+        }
