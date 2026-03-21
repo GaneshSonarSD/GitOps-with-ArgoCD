@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: s3-storage
+provisioner: ru.yandex.s3.csi
+parameters:
+  mounter: geesefs
+  bucket: kube-bucket
+  region: us-east-1
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
