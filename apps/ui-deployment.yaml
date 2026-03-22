@@ -14,12 +14,6 @@ spec:
     spec:
       containers:
       - name: ui
-        image: natsio/nats-box
-        command: ["sh", "-c"]
-        args:
-          - |
-            echo "UI publisher running..."
-            while true; do
-              nats --server nats:4222 pub events.demo "hello from UI"
-              sleep 5
-            done
+        image: nginx
+        ports:
+        - containerPort: 80
