@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      containers:
+      - name: ui
+        image: natsio/nats-box
+        command: ["sh", "-c"]
+        args:
+          - |
+            echo "UI publisher running..."
+            while true; do
+              nats --server nats:4222 pub events.demo "hello from UI"
+              sleep 5
+            done

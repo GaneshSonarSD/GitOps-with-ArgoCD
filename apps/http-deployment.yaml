@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: http
+  template:
+    metadata:
+      labels:
+        app: http
+    spec:
+      containers:
+      - name: http
+        image: natsio/nats-box
+        command: ["sh", "-c"]
+        args:
+          - |
+            echo "Starting HTTP subscriber..."
+            nats --server nats:4222 sub events.demo
