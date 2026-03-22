@@ -1,12 +1,28 @@
 # GitOps-with-ArgoCD
 
-![alt text](image.png)
+<h2 align="center">High-Level Architecture</h2>
 
-**🧩 Event-Driven Microservices Architecture on Kubernetes**
+<p align="center">
+  <img src="images.png" width="700"/>
+</p>
+
+
+
+## 🧱 Architecture Components
+
+- **K3s** – Lightweight Kubernetes cluster  
+- **Traefik** – Ingress controller for routing  
+- **NATS** – Event-driven messaging system  
+- **WebSocket Service** – Real-time communication  
+- **OPA (Open Policy Agent)** – Policy enforcement  
+- **RBAC** – Access control  
+- **MinIO (CSI)** – Persistent storage  
+
+## 📖 Overview
 
 This project implements an event-driven microservices architecture on K3s using YAML-based deployments. External traffic is routed through Traefik, directing requests to the UI and WebSocket services based on path rules.
 
-The UI service publishes messages to NATS, while the HTTP service subscribes and processes them asynchronously, demonstrating decoupled communication. A WebSocket service enables real-time interactions with clients. Security and governance are enforced using Open Policy Agent and RBAC, with optional storage support provided by MinIO.
+The UI service publishes messages to NATS, while the HTTP service subscribes and processes them asynchronously, demonstrating decoupled communication. A WebSocket service enables real-time interactions with clients. Security and governance are enforced using OPA and RBAC, with optional storage support provided by MinIO.
 
 
 💾 Storage Integration using CSI with MinIO**
