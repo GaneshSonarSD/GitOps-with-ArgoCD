@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: nats-sanity-
+  namespace: argo
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  entrypoint: test-nats
+
+  templates:
+  - name: test-nats
+    container:
+      image: natsio/nats-box
+      command: [sh, -c]
+      args:
+        - |
+          echo "Running post-deployment sanity check..."
+          nats --server nats.default.svc.cluster.local:4222 pub test.sanity "check"
+          echo "NATS connectivity OK"
