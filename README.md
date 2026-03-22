@@ -3,7 +3,7 @@
 <h2 align="center">High-Level Architecture</h2>
 
 <p align="center">
-  <img src="images.png" width="700"/>
+  <img src="image.png" width="700"/>
 </p>
 
 
